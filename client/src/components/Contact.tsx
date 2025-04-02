@@ -54,8 +54,8 @@ const Contact = () => {
     // Initialize EmailJS with user ID
     emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH');
     
-    // For demonstration/testing purposes only, show success message initially
-    setIsSuccess(true);
+    // Don't show success message initially - wait for form submission
+    setIsSuccess(false);
     
     return () => {
       // Cleanup if needed
