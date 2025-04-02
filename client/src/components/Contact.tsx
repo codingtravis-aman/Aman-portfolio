@@ -1,4 +1,4 @@
-import { useState, FormEvent, useRef, ChangeEvent } from "react";
+import { useState, FormEvent, useRef, ChangeEvent, useEffect } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
@@ -48,6 +48,25 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  
+  // Initialize EmailJS
+  useEffect(() => {
+    // Initialize EmailJS with user ID
+    emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH');
+    
+    // For testing
+    const testSuccess = () => {
+      // For testing success message functionality
+      setIsSuccess(true);
+    };
+    
+    // Uncomment to test success message
+    testSuccess();
+    
+    return () => {
+      // Cleanup if needed
+    };
+  }, []);
   
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
