@@ -1,8 +1,7 @@
-import { useState, FormEvent, useRef, ChangeEvent, useEffect } from "react";
+import { useState, FormEvent, useRef, ChangeEvent } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
-import emailjs from "emailjs-com";
 
 interface FormData {
   name: string;
@@ -49,18 +48,8 @@ const Contact = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   
-  // Initialize EmailJS
-  useEffect(() => {
-    // Initialize EmailJS with user ID
-    emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH');
-    
-    // Don't show success message initially - wait for form submission
-    setIsSuccess(false);
-    
-    return () => {
-      // Cleanup if needed
-    };
-  }, []);
+  // Set initial state
+  // Don't show success message initially - wait for form submission
   
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
