@@ -54,14 +54,8 @@ const Contact = () => {
     // Initialize EmailJS with user ID
     emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH');
     
-    // For testing
-    const testSuccess = () => {
-      // For testing success message functionality
-      setIsSuccess(true);
-    };
-    
-    // Uncomment to test success message
-    testSuccess();
+    // For demonstration/testing purposes only, show success message initially
+    setIsSuccess(true);
     
     return () => {
       // Cleanup if needed

@@ -1,40 +1,48 @@
 import { createContext, useEffect, useState, ReactNode } from "react";
 
+// Define theme types
 type Theme = "light" | "dark";
 
+// Define context type
 type ThemeContextType = {
   theme: Theme;
   toggleTheme: () => void;
 };
 
-export const ThemeContext = createContext<ThemeContextType>({
+// Create context with default values
+const defaultContextValue: ThemeContextType = {
   theme: "light",
-  toggleTheme: () => {},
-});
+  toggleTheme: () => {
+    console.log("Default toggle function");
+  },
+};
 
+// Export context
+export const ThemeContext = createContext<ThemeContextType>(defaultContextValue);
+
+// Theme provider component
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check if we're on the client side
-    if (typeof window !== "undefined") {
-      // Check for saved theme
-      const savedTheme = localStorage.getItem("theme");
-      if (savedTheme && (savedTheme === "light" || savedTheme === "dark")) {
-        return savedTheme as Theme;
-      }
-      
-      // Check system preference
-      if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        return "dark";
-      }
-    }
-    
-    return "light";
-  });
-
+  // Initialize theme state
+  const [theme, setTheme] = useState<Theme>("dark");
+  
+  // Initialize theme on mount
   useEffect(() => {
-    console.log("Theme changed to:", theme); // For debugging
+    // Try to get saved theme from localStorage
+    const savedTheme = localStorage.getItem("theme") as Theme;
+    if (savedTheme === "light" || savedTheme === "dark") {
+      setTheme(savedTheme);
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  }, []);
+
+  // Apply theme changes to DOM
+  useEffect(() => {
+    console.log("Applying theme:", theme);
     
-    // Update class on document element
+    // Update classList
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
       document.documentElement.classList.remove("light");
@@ -46,28 +54,28 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     // Save to localStorage
     try {
       localStorage.setItem("theme", theme);
-    } catch (e) {
-      console.error("Failed to save theme to localStorage:", e);
+    } catch (error) {
+      console.error("Failed to save theme to localStorage:", error);
     }
   }, [theme]);
 
+  // Toggle theme function
   const toggleTheme = () => {
-    console.log("Toggle theme clicked - current theme:", theme);
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    
-    // Force update DOM classes directly as well
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      document.documentElement.classList.remove("light");
-    } else {
-      document.documentElement.classList.add("light");
-      document.documentElement.classList.remove("dark");
-    }
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === "light" ? "dark" : "light";
+      console.log(`Toggling theme from ${prevTheme} to ${newTheme}`);
+      return newTheme;
+    });
+  };
+
+  // Provide context value to children
+  const contextValue: ThemeContextType = {
+    theme,
+    toggleTheme,
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );
