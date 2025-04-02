@@ -2,6 +2,7 @@ import { useState, FormEvent, useRef, ChangeEvent } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from "emailjs-com";
 
 interface FormData {
   name: string;
@@ -57,17 +58,31 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // EmailJS integration would go here
-      // For now, we'll simulate the API call with a timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Create a template parameters object with the form data
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      };
+      
+      // Send the email using EmailJS
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_a9ok1xn',
+        import.meta.env.EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH'
+      );
       
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I'll get back to you soon.",
       });
       
+      // Reset the form after successful submission
       setFormData(initialFormData);
     } catch (error) {
+      console.error('Error sending email:', error);
       toast({
         title: "Error",
         description: "There was an error sending your message. Please try again.",
