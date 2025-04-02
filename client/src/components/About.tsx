@@ -23,7 +23,7 @@ const About = () => {
             About <span className="text-primary">Me</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-          <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} max-w-2xl mx-auto`}>
+          <p className={`${theme === "dark" ? "text-white/90" : "text-black/90"} max-w-2xl mx-auto text-lg font-medium`}>
             Passionate about crafting exceptional digital experiences with modern technologies.
           </p>
         </motion.div>
@@ -50,10 +50,10 @@ const About = () => {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-2xl font-bold font-sans mb-4">
+            <h3 className="text-2xl font-bold font-sans mb-4 text-gray-900 dark:text-white">
               I'm a <span className="text-primary">Freelance Software Developer</span> from India
             </h3>
-            <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} mb-6 leading-relaxed`}>
+            <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} mb-6 leading-relaxed font-medium`}>
               With a passion for building innovative solutions, I help businesses transform their ideas into reality. I specialize in creating modern, scalable applications that deliver exceptional user experiences.
             </p>
             
@@ -83,7 +83,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.1 }}
               >
-                <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"}`}>
+                <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} font-medium`}>
                   <i className="fas fa-envelope text-primary mr-2"></i> asyn.aman@gmail.com
                 </p>
               </motion.div>
@@ -93,7 +93,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.2 }}
               >
-                <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"}`}>
+                <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} font-medium`}>
                   <i className="fas fa-phone text-primary mr-2"></i> +91 9560567598
                 </p>
               </motion.div>
@@ -103,7 +103,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.3 }}
               >
-                <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"}`}>
+                <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} font-medium`}>
                   <i className="fas fa-map-marker-alt text-primary mr-2"></i> India
                 </p>
               </motion.div>
@@ -113,7 +113,7 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.4 }}
               >
-                <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"}`}>
+                <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} font-medium`}>
                   <i className="fas fa-language text-primary mr-2"></i> English, Hindi
                 </p>
               </motion.div>

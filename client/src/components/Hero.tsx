@@ -109,11 +109,11 @@ const Hero = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             Hello, I'm <span className="text-purple-600 dark:text-purple-400">Aman Jha</span>
-            <span className="block mt-4 text-4xl md:text-5xl bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 dark:from-purple-400 dark:via-blue-400 dark:to-indigo-500 text-transparent bg-clip-text">Crafting Digital Experiences</span>
+            <span className="block mt-4 text-4xl md:text-5xl bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 dark:from-purple-400 dark:via-blue-400 dark:to-indigo-500 text-transparent bg-clip-text font-extrabold">Crafting Digital Experiences</span>
           </motion.h1>
           
           <motion.p
-            className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-700 dark:text-gray-300"
+            className="text-xl max-w-2xl mx-auto leading-relaxed text-gray-800 dark:text-gray-200 font-medium"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -189,17 +189,17 @@ const Hero = () => {
             {services.map((service, index) => (
               <motion.div
                 key={service.title}
-                className="bg-white dark:bg-gray-800/80 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all flex flex-col items-center text-center backdrop-blur-sm"
+                className="bg-white dark:bg-gray-800/90 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all flex flex-col items-center text-center backdrop-blur-sm border border-gray-100 dark:border-gray-700"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 + (index * 0.2) }}
                 whileHover={{ y: -5 }}
               >
-                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400">
+                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mb-4 text-purple-600 dark:text-purple-400">
                   {service.icon}
                 </div>
-                <h3 className="font-bold text-xl mb-2 text-gray-900 dark:text-white">{service.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
+                <h3 className="font-bold text-xl mb-3 text-gray-900 dark:text-white">{service.title}</h3>
+                <p className="text-gray-800 dark:text-gray-200 font-medium">{service.description}</p>
               </motion.div>
             ))}
           </div>

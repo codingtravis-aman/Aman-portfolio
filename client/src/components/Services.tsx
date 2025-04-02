@@ -54,7 +54,7 @@ const Services = () => {
             My <span className="text-primary">Services</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-          <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} max-w-2xl mx-auto`}>
+          <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} max-w-2xl mx-auto font-medium text-lg`}>
             I offer comprehensive development solutions to help businesses achieve their digital goals.
           </p>
         </motion.div>
@@ -74,8 +74,8 @@ const Services = () => {
               <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
                 <i className={`fas ${service.icon} text-2xl text-primary group-hover:text-white transition-colors`}></i>
               </div>
-              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-              <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} mb-4`}>
+              <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
+              <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} mb-4 font-medium`}>
                 {service.description}
               </p>
               <div className="flex flex-wrap gap-2 mb-4">

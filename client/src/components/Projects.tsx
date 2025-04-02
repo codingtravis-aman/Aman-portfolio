@@ -36,7 +36,7 @@ const Projects = () => {
             My <span className="text-primary">Projects</span>
           </h2>
           <div className="w-20 h-1 bg-primary mx-auto mb-6"></div>
-          <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} max-w-2xl mx-auto`}>
+          <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} max-w-2xl mx-auto font-medium text-lg`}>
             A showcase of my recent work across app development, web development, and software solutions.
           </p>
         </motion.div>
@@ -100,7 +100,7 @@ const Projects = () => {
                     </div>
                   </div>
                   <div className="p-6">
-                    <p className={`${theme === "dark" ? "text-white/70" : "text-black/70"} mb-4`}>
+                    <p className={`${theme === "dark" ? "text-white/90" : "text-gray-800"} mb-4 font-medium`}>
                       {project.description}
                     </p>
                     <div className="flex justify-between items-center">
