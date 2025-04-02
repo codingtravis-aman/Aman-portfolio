@@ -87,26 +87,46 @@ const Header = () => {
             <button 
               onClick={toggleTheme}
               className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors
-                ${theme === "dark" ? "bg-gray-700" : "bg-gray-200"}`}
+                ${theme === "dark" ? "bg-gray-700 hover:bg-gray-600" : "bg-gray-200 hover:bg-gray-300"}`}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? (
-                <motion.i 
-                  className="fas fa-sun text-yellow-400"
-                  initial={{ rotate: -30, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 30, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                ></motion.i>
-              ) : (
-                <motion.i 
-                  className="fas fa-moon text-gray-700"
-                  initial={{ rotate: 30, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -30, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                ></motion.i>
-              )}
+              <AnimatePresence mode="wait">
+                {theme === "dark" ? (
+                  <motion.div
+                    key="sun-icon"
+                    className="flex items-center justify-center w-full h-full"
+                    initial={{ rotate: -30, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 30, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-yellow-300">
+                      <circle cx="12" cy="12" r="5"></circle>
+                      <line x1="12" y1="1" x2="12" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="23"></line>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                      <line x1="1" y1="12" x2="3" y2="12"></line>
+                      <line x1="21" y1="12" x2="23" y2="12"></line>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="moon-icon"
+                    className="flex items-center justify-center w-full h-full"
+                    initial={{ rotate: 30, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -30, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </button>
           </motion.div>
           
@@ -170,15 +190,17 @@ const Header = () => {
               
               {/* Mobile Theme Toggle */}
               <div className="flex items-center justify-between py-2">
-                <span className={theme === "dark" ? "text-white/80" : "text-black/80"}>Theme</span>
+                <span className={theme === "dark" ? "text-white/80" : "text-black/80"}>
+                  {theme === "dark" ? "Dark" : "Light"} Mode
+                </span>
                 <button 
                   onClick={toggleTheme}
                   className={`w-12 h-6 rounded-full relative transition-colors
                     ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`}
                   aria-label="Toggle theme"
                 >
-                  <motion.span 
-                    className={`absolute w-5 h-5 rounded-full top-0.5 transition-colors
+                  <motion.div 
+                    className={`absolute flex items-center justify-center w-5 h-5 rounded-full top-0.5 text-xs transition-colors
                       ${theme === "dark" ? "bg-primary left-6" : "bg-white left-0.5"}`}
                     layout
                     transition={{ 
@@ -186,7 +208,25 @@ const Header = () => {
                       stiffness: 700,
                       damping: 30
                     }}
-                  />
+                  >
+                    {theme === "dark" ? (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path d="M12 2v2"></path>
+                        <path d="M12 20v2"></path>
+                        <path d="m4.93 4.93 1.41 1.41"></path>
+                        <path d="m17.66 17.66 1.41 1.41"></path>
+                        <path d="M2 12h2"></path>
+                        <path d="M20 12h2"></path>
+                        <path d="m6.34 17.66-1.41 1.41"></path>
+                        <path d="m19.07 4.93-1.41 1.41"></path>
+                      </svg>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-gray-700">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                      </svg>
+                    )}
+                  </motion.div>
                 </button>
               </div>
             </div>
