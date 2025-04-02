@@ -101,13 +101,12 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
             >
               <motion.div 
-                className="w-6 h-6 relative rounded-full bg-white shadow-sm transform scale-90 flex items-center justify-center"
+                className="w-6 h-6 relative rounded-full shadow-sm transform scale-90 flex items-center justify-center"
                 animate={{
                   x: theme === "dark" ? 24 : 0,
-                  rotate: theme === "dark" ? 40 : 0,
                   backgroundColor: theme === "dark" ? "#6D28D9" : "#ffffff"
                 }}
-                transition={{ type: "spring", stiffness: 700, damping: 30 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {theme === "dark" ? (
@@ -271,12 +270,12 @@ const Header = () => {
                   aria-label="Toggle theme"
                 >
                   <motion.div 
-                    className="w-6 h-6 relative rounded-full bg-white shadow-sm transform scale-90 flex items-center justify-center"
+                    className="w-6 h-6 relative rounded-full shadow-sm transform scale-90 flex items-center justify-center"
                     animate={{
                       x: theme === "dark" ? 24 : 0,
                       backgroundColor: theme === "dark" ? "#6D28D9" : "#ffffff"
                     }}
-                    transition={{ type: "spring", stiffness: 700, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   >
                     {theme === "dark" ? (
                       <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
