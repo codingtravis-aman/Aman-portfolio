@@ -58,13 +58,8 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      // Get template ID from environment variable
-      const templateId = import.meta.env.EMAILJS_TEMPLATE_ID;
-      
-      // Check if template ID is available
-      if (!templateId) {
-        throw new Error("Template ID is missing. Please configure your EMAILJS_TEMPLATE_ID environment variable.");
-      }
+      // Use the provided template ID
+      const templateId = 'template_gd3b18d';
       
       // Create a template parameters object with the form data
       const templateParams = {
