@@ -1,46 +1,13 @@
 import { useTheme } from "../hooks/useTheme";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import heroImage from "../assets/hero-image.jpg";
-import { useRef } from "react";
 
 const Hero = () => {
   const { theme } = useTheme();
-  const sectionRef = useRef(null);
   
-  // Parallax scrolling effect
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"]
-  });
-  
-  const translateY = useTransform(scrollYProgress, [0, 1], [0, 300]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  
-  // Generate a 3D grid pattern for the background
+  // Simple pattern for the background
   const gridPattern = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M0 0h100v100H0z' fill='none'/%3E%3Cpath d='M0 0h50v50H0zm50 50h50v50H50z' fill='${theme === "dark" ? "%23ffffff08" : "%2301021908"}' /%3E%3C/svg%3E`;
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-        duration: 0.6
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { type: "spring", stiffness: 100 }
-    }
-  };
-  
   const techStacks = [
     {
       name: "Frontend",
@@ -57,86 +24,60 @@ const Hero = () => {
   ];
   
   return (
-    <motion.section 
+    <section 
       id="hero" 
-      ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden"
       style={{ 
         backgroundImage: `url(${gridPattern})`,
-        backgroundColor: theme === "dark" ? "#080c1a" : "#f8fafc" 
+        backgroundColor: theme === "dark" ? "#080c1a" : "#f8fafc",
+        position: "relative"
       }}
       data-scroll-section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.2 }}
     >
-      {/* Background gradient and effects */}
+      {/* Background effects */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background"></div>
       
-      {/* Background animated blurs - these create a subtle, modern look */}
+      {/* Background blurs */}
       <div className="absolute inset-0 overflow-hidden">
-        <motion.div 
-          className="absolute -top-20 -right-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-60"
-          animate={{ 
-            x: [0, 40, 0],
-            y: [0, -40, 0], 
-          }}
-          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
-        />
-        <motion.div 
-          className="absolute bottom-32 -left-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl opacity-50"
-          animate={{ 
-            x: [0, -30, 0],
-            y: [0, 30, 0], 
-          }}
-          transition={{ duration: 15, repeat: Infinity, repeatType: "reverse", delay: 2 }}
-        />
-        <motion.div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-1/2 bg-primary/5 rounded-full blur-3xl opacity-40"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.4, 0.5, 0.4]
-          }}
-          transition={{ duration: 25, repeat: Infinity, repeatType: "reverse" }}
-        />
+        <div className="absolute -top-20 -right-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl opacity-60"></div>
+        <div className="absolute bottom-32 -left-20 w-72 h-72 bg-indigo-500/20 rounded-full blur-3xl opacity-50"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-1/2 bg-violet-500/5 rounded-full blur-3xl opacity-40"></div>
       </div>
       
-      {/* Grid background */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
-      
-      <motion.div 
-        className="container relative z-10 px-4 mx-auto grid lg:grid-cols-12 gap-8 items-center"
-        style={{ opacity }}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Text Content - 7 columns on desktop */}
+      <div className="container relative z-10 px-4 mx-auto grid lg:grid-cols-12 gap-8 items-center">
+        {/* Text Content */}
         <div className="lg:col-span-7 space-y-8">
           <motion.div 
             className="space-y-6"
-            variants={itemVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
           >
             <motion.div
-              className="inline-flex items-center space-x-3 px-6 py-2.5 border border-primary/20 backdrop-blur-sm rounded-full bg-primary/5 text-sm"
-              whileHover={{ scale: 1.02, backgroundColor: "rgba(var(--primary), 0.1)" }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              className="inline-flex items-center space-x-3 px-6 py-2.5 border border-purple-500/20 backdrop-blur-sm rounded-full bg-purple-500/5 text-sm"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse"></span>
+              <span className="inline-block w-2 h-2 bg-purple-600 rounded-full animate-pulse"></span>
               <span className="text-gradient font-medium">Crafting Digital Excellence</span>
             </motion.div>
             
             <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold"
-              variants={itemVariants}
+              className="text-4xl md:text-6xl lg:text-7xl xl:text-7xl font-bold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <span className="text-foreground leading-tight block">Hello, I'm</span>
-              <span className="text-gradient font-extrabold block">Aman Jha</span>
+              <span className="leading-tight block">Hello, I'm</span>
+              <span className="text-purple-600 dark:text-purple-500 block">Aman Jha</span>
             </motion.h1>
             
             <motion.p
-              className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed"
-              variants={itemVariants}
+              className="text-lg md:text-xl max-w-xl leading-relaxed text-slate-700 dark:text-slate-300"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
             >
               A creative full-stack developer specializing in building exceptional digital experiences, 
               intuitive interfaces, and powerful applications that solve real business problems.
@@ -146,14 +87,14 @@ const Hero = () => {
           {/* Call to action buttons */}
           <motion.div 
             className="flex flex-wrap gap-4 pt-2"
-            variants={itemVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <motion.a
-              href="#contact"
-              className="btn-primary group"
+            <a 
+              href="#contact" 
+              className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 flex items-center gap-2"
               data-scroll-to
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
             >
               Let's Talk
               <svg 
@@ -166,19 +107,16 @@ const Hero = () => {
                 strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
-                className="group-hover:translate-x-1 transition-transform duration-300"
               >
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-            </motion.a>
+            </a>
             
-            <motion.a
+            <a
               href="#projects"
-              className="btn-outline group"
+              className="px-6 py-3 bg-transparent text-purple-600 font-medium rounded-lg transition-all border border-purple-300 hover:border-purple-600 flex items-center gap-2"
               data-scroll-to
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
             >
               View Projects
               <svg 
@@ -191,19 +129,20 @@ const Hero = () => {
                 strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
-                className="group-hover:translate-x-1 transition-transform duration-300"
               >
                 <polyline points="9 18 15 12 9 6"></polyline>
               </svg>
-            </motion.a>
+            </a>
           </motion.div>
           
           {/* Tech Stack Showcase */}
           <motion.div 
             className="pt-8"
-            variants={itemVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h3 className="text-base font-medium text-muted-foreground/70 mb-4">Expert In</h3>
+            <h3 className="text-base font-medium text-slate-600 dark:text-slate-400 mb-4">Expert In</h3>
             <div className="flex flex-wrap gap-8">
               {techStacks.map((stack, stackIndex) => (
                 <motion.div 
@@ -211,18 +150,17 @@ const Hero = () => {
                   className="space-y-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + (stackIndex * 0.1) }}
+                  transition={{ duration: 0.4, delay: 0.4 + (stackIndex * 0.1) }}
                 >
-                  <h4 className="text-primary font-medium">{stack.name}</h4>
+                  <h4 className="text-purple-600 dark:text-purple-500 font-medium">{stack.name}</h4>
                   <div className="flex flex-wrap gap-2">
                     {stack.skills.map((skill, skillIndex) => (
                       <motion.span
                         key={skill}
-                        className="px-3 py-1 bg-primary/5 border border-primary/10 rounded-md text-sm text-foreground/80"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6 + (stackIndex * 0.05) + (skillIndex * 0.05) }}
-                        whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--primary), 0.1)" }}
+                        className="px-3 py-1 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800/30 rounded-md text-sm text-slate-800 dark:text-slate-200"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.6 + (stackIndex * 0.05) + (skillIndex * 0.05) }}
                       >
                         {skill}
                       </motion.span>
@@ -236,7 +174,9 @@ const Hero = () => {
           {/* Social links */}
           <motion.div 
             className="flex items-center gap-6 pt-6"
-            variants={itemVariants}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
           >
             {[
               { 
@@ -280,163 +220,118 @@ const Hero = () => {
                 )
               }
             ].map((social, index) => (
-              <motion.a
+              <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-10 h-10 rounded-full glassmorphism hover:text-primary hover:border-primary/50 transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + (index * 0.1) }}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
+                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/80 dark:bg-gray-800/80 shadow-md hover:text-purple-600 hover:shadow-lg transition-all duration-300"
                 aria-label={social.name}
               >
                 {social.icon}
-              </motion.a>
+              </a>
             ))}
           </motion.div>
         </div>
         
-        {/* Image Content - 5 columns on desktop */}
-        <motion.div 
-          className="lg:col-span-5 flex justify-center items-center"
-          variants={itemVariants}
-        >
-          <div className="relative">
-            {/* Main image with full style */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ type: "spring", stiffness: 100, delay: 0.2, duration: 0.8 }}
-            >
-              <div className="glassmorphism rounded-3xl overflow-hidden p-5 shadow-xl">
-                {/* Placeholder glow effect */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-secondary/10"
-                  animate={{ 
-                    opacity: [0.5, 0.8, 0.5],
-                    background: [
-                      "linear-gradient(45deg, rgba(var(--primary), 0.1), transparent, rgba(var(--secondary), 0.1))",
-                      "linear-gradient(45deg, rgba(var(--secondary), 0.1), transparent, rgba(var(--primary), 0.1))",
-                      "linear-gradient(45deg, rgba(var(--primary), 0.1), transparent, rgba(var(--secondary), 0.1))"
-                    ]
-                  }}
-                  transition={{ duration: 10, repeat: Infinity, repeatType: "reverse" }}
-                />
+        {/* Image Content */}
+        <div className="lg:col-span-5 flex justify-center items-center">
+          <motion.div
+            className="relative"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+          >
+            <div className="bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg border border-white/20 dark:border-gray-800/20 rounded-3xl overflow-hidden p-5 shadow-xl">
+              {/* Image container */}
+              <div className="relative overflow-hidden rounded-2xl">
+                <div className="aspect-[3/4] overflow-hidden rounded-2xl">
+                  <img 
+                    src={heroImage} 
+                    alt="Aman Jha - Professional Software Developer" 
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                </div>
                 
-                {/* Image container */}
-                <motion.div
-                  className="relative overflow-hidden rounded-2xl z-10"
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  <div className="aspect-[3/4] overflow-hidden rounded-2xl">
-                    <motion.img 
-                      src={heroImage} 
-                      alt="Aman Jha - Professional Software Developer" 
-                      className="w-full h-full object-cover"
-                      initial={{ scale: 1.2 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                    />
-                    
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                {/* Image overlay content */}
+                <div className="absolute bottom-4 left-4 right-4 p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-white/10">
+                  <div className="flex items-center space-x-3 mb-1">
+                    <span className="inline-block w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    <span className="text-white font-medium text-sm">Available for new projects</span>
                   </div>
-                  
-                  {/* Image overlay content */}
-                  <motion.div
-                    className="absolute bottom-4 left-4 right-4 p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-white/10"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <div className="flex items-center space-x-3 mb-1">
-                      <span className="inline-block w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
-                      <span className="text-white font-medium text-sm">Available for new projects</span>
-                    </div>
-                    <div className="text-white/80 text-xs">Let's build something amazing together</div>
-                  </motion.div>
-                  
-                  {/* Experience badge */}
-                  <motion.div
-                    className="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-lg font-medium shadow-lg text-sm"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    5+ Years Experience
-                  </motion.div>
-                </motion.div>
+                  <div className="text-white/80 text-xs">Let's build something amazing together</div>
+                </div>
+                
+                {/* Experience badge */}
+                <div className="absolute top-4 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg font-medium shadow-lg text-sm">
+                  5+ Years Experience
+                </div>
               </div>
-            </motion.div>
+            </div>
             
             {/* Floating elements */}
             <motion.div
-              className="absolute -bottom-6 -right-6 p-4 rounded-xl glassmorphism border border-primary/20 max-w-[200px] shadow-lg"
+              className="absolute -bottom-6 -right-6 p-4 rounded-xl bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-white/20 dark:border-gray-800/20 max-w-[200px] shadow-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              whileHover={{ y: -5 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
               <div className="flex items-center space-x-2 mb-2">
                 <div className="flex-shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600">
                     <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
                   </svg>
                 </div>
                 <span className="font-semibold text-sm">Full-Stack Services</span>
               </div>
-              <div className="text-xs text-primary">
+              <div className="text-xs text-purple-600">
                 App Development, Web Solutions, AI Integration
               </div>
             </motion.div>
             
             <motion.div
-              className="absolute -top-2 -left-6 p-3 rounded-full glassmorphism border border-primary/20 shadow-lg"
+              className="absolute -top-2 -left-6 p-3 rounded-full bg-white/70 dark:bg-gray-900/70 backdrop-blur-sm border border-white/20 dark:border-gray-800/20 shadow-lg"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.8, type: "spring" }}
-              whileHover={{ rotate: 15 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-purple-600">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
                 <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
               </svg>
             </motion.div>
-          </div>
-        </motion.div>
-      </motion.div>
+          </motion.div>
+        </div>
+      </div>
       
       {/* Scroll indicator */}
       <motion.div 
         className="absolute left-1/2 bottom-12 transform -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        style={{ y: translateY, opacity }}
+        transition={{ duration: 0.6, delay: 1 }}
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
           className="flex flex-col items-center"
         >
-          <div className="w-6 h-10 rounded-full border-2 border-primary/30 flex justify-center p-1">
+          <div className="w-6 h-10 rounded-full border-2 border-purple-500/30 flex justify-center p-1">
             <motion.div 
-              className="w-1.5 h-1.5 bg-primary rounded-full"
+              className="w-1.5 h-1.5 bg-purple-600 rounded-full"
               animate={{ y: [0, 15, 0] }}
               transition={{ duration: 1.5, repeat: Infinity, repeatType: "loop" }}
             />
           </div>
-          <span className="text-xs mt-2 text-muted-foreground">Scroll Down</span>
+          <span className="text-xs mt-2 text-slate-500 dark:text-slate-400">Scroll Down</span>
         </motion.div>
       </motion.div>
-    </motion.section>
+    </section>
   );
 };
 
