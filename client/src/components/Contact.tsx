@@ -58,6 +58,14 @@ const Contact = () => {
     setIsSubmitting(true);
     
     try {
+      // Get template ID from environment variable
+      const templateId = import.meta.env.EMAILJS_TEMPLATE_ID;
+      
+      // Check if template ID is available
+      if (!templateId) {
+        throw new Error("Template ID is missing. Please configure your EMAILJS_TEMPLATE_ID environment variable.");
+      }
+      
       // Create a template parameters object with the form data
       const templateParams = {
         from_name: formData.name,
@@ -69,7 +77,7 @@ const Contact = () => {
       // Send the email using EmailJS
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_a9ok1xn',
-        import.meta.env.EMAILJS_TEMPLATE_ID,
+        templateId,
         templateParams,
         import.meta.env.VITE_EMAILJS_USER_ID || 'DNSMvNxpOouque3SH'
       );
@@ -81,11 +89,17 @@ const Contact = () => {
       
       // Reset the form after successful submission
       setFormData(initialFormData);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending email:', error);
+      
+      // Show a more specific error message if available
+      const errorMessage = error.message && error.message.includes("Template ID") 
+        ? "Email template configuration needed. Please contact the administrator."
+        : "There was an error sending your message. Please try again.";
+      
       toast({
         title: "Error",
-        description: "There was an error sending your message. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
