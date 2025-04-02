@@ -200,38 +200,69 @@ const Header = () => {
             exit={{ clipPath: "circle(0% at top right)" }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
-            <div className="h-full flex flex-col justify-center items-center space-y-8 p-4">
-              {[
-                { name: "About", href: "#about" }, 
-                { name: "Services", href: "#services" }, 
-                { name: "Projects", href: "#projects" }, 
-                { name: "Contact", href: "#contact" }
-              ].map((item, index) => (
-                <motion.a 
-                  key={item.name}
-                  href={item.href}
-                  className="text-2xl font-medium text-gradient relative"
+            <div className="h-full flex flex-col justify-center items-center space-y-8 p-8">
+              <div className="absolute top-6 right-6">
+                <button
                   onClick={closeMobileMenu}
-                  data-scroll-to
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.2 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary"
+                  aria-label="Close menu"
                 >
-                  {item.name}
-                  <span className="absolute -bottom-2 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform ease-out duration-300"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="mb-4 text-center">
+                <motion.a 
+                  href="#hero" 
+                  className="text-2xl font-bold relative inline-block"
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  data-scroll-to
+                  onClick={closeMobileMenu}
+                >
+                  <span className="text-primary text-3xl font-bold">&lt;</span>
+                  <span className="text-gradient">Aman</span>
+                  <span className="text-primary text-3xl font-bold">/&gt;</span>
                 </motion.a>
-              ))}
+              </div>
+              
+              <div className="flex flex-col items-center space-y-6">
+                {[
+                  { name: "About", href: "#about" }, 
+                  { name: "Services", href: "#services" }, 
+                  { name: "Projects", href: "#projects" }, 
+                  { name: "Contact", href: "#contact" }
+                ].map((item, index) => (
+                  <motion.a 
+                    key={item.name}
+                    href={item.href}
+                    className="text-xl font-medium relative group"
+                    onClick={closeMobileMenu}
+                    data-scroll-to
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 + 0.2 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {item.name}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
+                  </motion.a>
+                ))}
+              </div>
               
               {/* Mobile Theme Toggle */}
               <motion.div 
-                className="flex items-center space-x-4 mt-8"
+                className="flex items-center space-x-4 mt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
-                <span className="text-sm font-medium">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {theme === "dark" ? "Dark" : "Light"} Mode
                 </span>
                 <button 
@@ -270,7 +301,7 @@ const Header = () => {
               
               {/* Social Links */}
               <motion.div 
-                className="flex items-center justify-center space-x-6 mt-12"
+                className="grid grid-cols-4 gap-4 mt-8"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
@@ -316,13 +347,16 @@ const Header = () => {
                       </svg>
                     )
                   }
-                ].map((item) => (
+                ].map((item, index) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors duration-300"
+                    className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors duration-300"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7 + (index * 0.1) }}
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
                   >
