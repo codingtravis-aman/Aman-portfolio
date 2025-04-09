@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - EMAILJS_USER_ID=${EMAILJS_USER_ID}
+      - EMAILJS_TEMPLATE_ID=${EMAILJS_TEMPLATE_ID}
+    restart: unless-stopped
